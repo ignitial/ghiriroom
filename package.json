@@ -1,0 +1,27 @@
+{
+  "name": "ghiriroom",
+  "version": "1.0.0",
+  "description": "Notifications for dumbs like me",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "fastify start -l info src/app.js",
+    "dev": "fastify start -w -l info -P src/app.js -p 3000 -a 0.0.0.0",
+    "build:docker": "docker/build.sh"
+  },
+  "keywords": ["notifications", "events", "websocket", "fastify"],
+  "author": "V. Andritoiu <devandrito@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/autoload": "^5.0.0",
+    "@fastify/cors": "^8.3.0",
+    "@fastify/sensible": "^5.0.0",
+    "@fastify/swagger": "^8.5.1",
+    "@fastify/swagger-ui": "^1.9.0",
+    "@fastify/websocket": "^8.1.0",
+    "dotenv": "^16.1.4",
+    "fastify": "^4.0.0",
+    "fastify-cli": "^5.7.1",
+    "fastify-plugin": "^4.0.0",
+    "lokijs": "^1.5.12"
+  }
+}
