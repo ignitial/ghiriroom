@@ -4,6 +4,6 @@ COPY . /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN npm i --only=prod
+RUN npm i --omit=dev
 
 CMD ["npm", "run", "start"]
