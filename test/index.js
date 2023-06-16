@@ -5,15 +5,17 @@ const dotenv = require("dotenv")
 dotenv.config()
 
 SERVER_HOST = process.env.GR_TEST_SERVER_HOST || 'localhost:3000'
+HTTP_PROTOCOL = process.env.GR_TEST_SSL === 'true' ? 'https' : 'http'
+WS_PROTOCOL = process.env.GR_TEST_SSL === 'true' ? 'wss' : 'ws'
 
-console.log('Will run against: %s', SERVER_HOST)
+console.log('Will run against: %s://%s', HTTP_PROTOCOL, SERVER_HOST)
 
 const APP_TOKEN = 'h6EhbYinV2hJ/-jYoeQg9wI8ibR5TQ=0saixl-GjitG72Sbl6cZTT892Ed6R-4Po'
 const ADMIN_TOKEN = process.env.GR_ADMIN_TOKEN 
 
 async function init() {
   // create app token
-  const res = await (await fetch('http://' + SERVER_HOST + '/token', {
+  const res = await (await fetch(HTTP_PROTOCOL + '://' + SERVER_HOST + '/token', {
     method: 'POST',
     body: JSON.stringify({ token: APP_TOKEN }),
     headers: { 
@@ -26,7 +28,7 @@ async function init() {
 
   // check existing tokens
   const tokens = await (await fetch(
-    'http://' + SERVER_HOST + '/token', {
+    HTTP_PROTOCOL + '://' + SERVER_HOST + '/token', {
       method: 'GET',
       headers: { 
         'Content-Type': 'application/json',
@@ -40,7 +42,7 @@ async function init() {
   const message = 'This is a test message.'
 
   // connect to WebSocket server
-  const ws = new WebSocket('wss://' + SERVER_HOST + '/ws/')
+  const ws = new WebSocket(WS_PROTOCOL + '://' + SERVER_HOST + '/ws/')
 
   ws.on('error', console.error)
 
@@ -50,7 +52,7 @@ async function init() {
     // subscribe to topic
     ws.send(JSON.stringify({"topic": 'answer'}))
 
-    fetch('http://' + SERVER_HOST + '/topic/send/' + topic, {
+    fetch(HTTP_PROTOCOL + '://' + SERVER_HOST + '/topic/send/' + topic, {
       method: 'POST',
       body: JSON.stringify({ message }),
       headers: { 

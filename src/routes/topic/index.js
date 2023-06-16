@@ -12,7 +12,7 @@ module.exports = function (fastify, options, done) {
     schema: {
       description: 'Send message to topic',
       tags: ['topic'],
-      body: {
+      params: {
         type: 'object',
         properties: {
           topic: { type: 'string' },
