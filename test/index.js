@@ -6,6 +6,8 @@ dotenv.config()
 
 SERVER_HOST = process.env.GR_TEST_SERVER_HOST || 'localhost:3000'
 
+console.log('Will run against: %s', SERVER_HOST)
+
 const APP_TOKEN = 'h6EhbYinV2hJ/-jYoeQg9wI8ibR5TQ=0saixl-GjitG72Sbl6cZTT892Ed6R-4Po'
 const ADMIN_TOKEN = process.env.GR_ADMIN_TOKEN 
 
