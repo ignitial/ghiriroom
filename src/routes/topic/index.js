@@ -19,6 +19,13 @@ module.exports = function (fastify, options, done) {
         },
         required: ['topic'],
       },
+      body: {
+        type: 'object',
+        properties: {
+          message: { type: 'string' },
+        },
+        required: ['message'],
+      },
       security: [
         {
           xAuthToken: [],
