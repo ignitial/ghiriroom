@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  ghiriroom:
+    image: ignitial/ghiriroom:latest
+    container_name: ghiriroom
+    ports:
+      - "3000:3000"
+    volumes:
+      - ${PWD}:/usr/src/app/data
+    env_file: ${PWD}/.env
