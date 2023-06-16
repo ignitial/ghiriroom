@@ -97,9 +97,9 @@ Sending a message to subscribers is done thanks to a call to an HTTP endpoint:
 ```bash
 curl -X POST \
      -H "Content-Type: application/json" \
-     -H "Authorization: h6EhbYinV2hJ/-jYoeQg9wI8ibR5TQ=0saixl-GjitG72Sbl6cZTT892Ed6R-4Po" \
+     -H "X-Auth-Token: h6EhbYinV2hJ/-jYoeQg9wI8ibR5TQ=0saixl-GjitG72Sbl6cZTT892Ed6R-4Po" \
      -d '{"message": "This is a test message."}' \
-     http://localhost:3000/topic/send/answer
+     https://localhost:3000/topic/send/answer
 ```
 
 where the destination topic, here, is _answer_.

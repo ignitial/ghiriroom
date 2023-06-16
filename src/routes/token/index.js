@@ -19,15 +19,14 @@ module.exports = function (fastify, options, done) {
     },
     handler: async (request, reply) => {
       const token = request.body.token
-      const createdAt = new Date().toISOString()
 
       try {
         const existing = fastify.tokens.findOne({ token })
         if (existing) {
           return reply.status(409).send({ error: 'Token already exists' })
         }
-        fastify.tokens.insert({ token, createdAt })
-        return reply.status(201).send({ token, createdAt })
+        fastify.tokens.insert({ token })
+        return reply.status(201).send({ token })
       } catch (err) {
         fastify.log.error(err)
         return reply.status(500).send(err)
@@ -39,7 +38,6 @@ module.exports = function (fastify, options, done) {
   fastify.route({
     method: 'GET',
     url: '/',
-    preHandler: fastify.basicAuth, // Ensure Basic Authentication
     handler: async (request, reply) => {
       try {
         const rows = fastify.tokens.find({})
@@ -55,7 +53,6 @@ module.exports = function (fastify, options, done) {
   fastify.route({
     method: 'DELETE',
     url: '/:token',
-    preHandler: fastify.basicAuth, // Ensure Basic Authentication
     handler: async (request, reply) => {
       try {
         const token = request.params.token

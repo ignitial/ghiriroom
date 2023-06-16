@@ -4,17 +4,19 @@ const dotenv = require("dotenv")
 // load .env file if any
 dotenv.config()
 
+SERVER_HOST = process.env.GR_TEST_SERVER_HOST || 'localhost:3000'
+
 const APP_TOKEN = 'h6EhbYinV2hJ/-jYoeQg9wI8ibR5TQ=0saixl-GjitG72Sbl6cZTT892Ed6R-4Po'
-const ADMIN_TOKEN= process.env.GR_ADMIN_TOKEN 
+const ADMIN_TOKEN = process.env.GR_ADMIN_TOKEN 
 
 async function init() {
   // create app token
-  const res = await (await fetch('http://localhost:3000/token', {
+  const res = await (await fetch('http://' + SERVER_HOST + '/token', {
     method: 'POST',
     body: JSON.stringify({ token: APP_TOKEN }),
     headers: { 
       'Content-Type': 'application/json',
-      'Authorization': ADMIN_TOKEN
+      'X-Auth-Token': ADMIN_TOKEN
     }
   })).json()
 
@@ -22,11 +24,11 @@ async function init() {
 
   // check existing tokens
   const tokens = await (await fetch(
-    'http://localhost:3000/token', {
+    'http://' + SERVER_HOST + '/token', {
       method: 'GET',
       headers: { 
         'Content-Type': 'application/json',
-        'Authorization': ADMIN_TOKEN
+        'X-Auth-Token': ADMIN_TOKEN
       }
     })).json()
 
@@ -36,7 +38,7 @@ async function init() {
   const message = 'This is a test message.'
 
   // connect to WebSocket server
-  const ws = new WebSocket('ws://localhost:3000/ws/')
+  const ws = new WebSocket('ws://' + SERVER_HOST + '/ws/')
 
   ws.on('error', console.error)
 
@@ -46,12 +48,12 @@ async function init() {
     // subscribe to topic
     ws.send(JSON.stringify({"topic": 'answer'}))
 
-    fetch('http://localhost:3000/topic/send/' + topic, {
+    fetch('http://' + SERVER_HOST + '/topic/send/' + topic, {
       method: 'POST',
       body: JSON.stringify({ message }),
       headers: { 
         'Content-Type': 'application/json',
-        'Authorization': APP_TOKEN
+        'X-Auth-Token': APP_TOKEN
       }
     })
   })

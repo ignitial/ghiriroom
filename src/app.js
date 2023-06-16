@@ -46,10 +46,9 @@ module.exports = async function (fastify, opts) {
   * admin token check
   */
   fastify.addHook('preValidation', async (request, reply) => {
-    const token = request.headers.authorization
-    if (
-      request.routerPath.match('/topic//subscribe') || request.routerPath.match('/topic/send')
-    ) {
+    const token = request.headers['x-auth-token']
+
+    if (request.routerPath.match('/topic/send')) {
       try {
         if (!fastify.checkAppToken(token)) {
           return reply.status(403).send('Application token does not match')
@@ -57,18 +56,16 @@ module.exports = async function (fastify, opts) {
       } catch (err) {
         reply.status(500).send({ error: 'An error occurred while validating admin token' });
       }
-    } else if (request.routerPath.match('/token') && request.routerMethod !== 'GET') {
+    } else if (request.routerPath.match('/token')) {
       try {
         if (token !== process.env.GR_ADMIN_TOKEN) {
-          fastify.log.info(request.headers)
-          fastify.log.info(token + ' ? ' + process.env.GR_ADMIN_TOKEN)
           reply.status(401).send({ error: 'Invalid admin token' })
         }
       } catch (err) {
         reply.status(500).send({ error: 'An error occurred while validating admin token' });
       }
     }
-  });
+  })
   
   // Do not touch the following lines
 

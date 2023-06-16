@@ -9,7 +9,7 @@
     "docker:build": "docker/build.sh",
     "docker:start": "docker/start.sh",
     "docker:stop": "docker/stop.sh",
-    "test:integrated": "node ./test/index.js"
+    "test:integrated": "./test/execute.sh"
   },
   "keywords": [
     "notifications",
