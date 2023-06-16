@@ -104,3 +104,7 @@ curl -X POST \
 
 where the destination topic, here, is _answer_.
 See _test/index.js_ for full example.
+
+## Todos
+
+- OpenAPI description and usability
