@@ -8,7 +8,12 @@
     "dev": "fastify start -w -l info -P src/app.js -p 3000 -a 0.0.0.0",
     "build:docker": "docker/build.sh"
   },
-  "keywords": ["notifications", "events", "websocket", "fastify"],
+  "keywords": [
+    "notifications",
+    "events",
+    "websocket",
+    "fastify"
+  ],
   "author": "V. Andritoiu <devandrito@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -23,5 +28,8 @@
     "fastify-cli": "^5.7.1",
     "fastify-plugin": "^4.0.0",
     "lokijs": "^1.5.12"
+  },
+  "devDependencies": {
+    "ws": "^8.13.0"
   }
 }

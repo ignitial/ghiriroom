@@ -4,7 +4,7 @@ const path = require('path')
 const loki = require('lokijs')
 const fp = require('fastify-plugin')
 
-async function dbPlugin(fastify, options, done) {
+function dbPlugin(fastify, options, done) {
   const db = new loki(path.join(__dirname, '../../data', 'database.db'), {
     autoload: true,
     autoloadCallback : databaseInitialize,
@@ -36,9 +36,9 @@ async function dbPlugin(fastify, options, done) {
     fastify.decorate('db', db)
     fastify.decorate('tokens', collections.tokens)
     fastify.decorate('checkAppToken', checkAppToken)
-  }
 
-  done()
+    done()
+  }
 }
 
 module.exports = fp(dbPlugin)

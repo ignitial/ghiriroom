@@ -1,5 +1,6 @@
 docker/
 node_modules/
+test/
 .env
 .gitignore
 .git/
