@@ -8,7 +8,8 @@
     "dev": "fastify start -w -l info -P src/app.js -p 3000 -a 0.0.0.0",
     "docker:build": "docker/build.sh",
     "docker:start": "docker/start.sh",
-    "docker:stop": "docker/stop.sh"
+    "docker:stop": "docker/stop.sh",
+    "test:integrated": "node ./test/index.js"
   },
   "keywords": [
     "notifications",
