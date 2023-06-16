@@ -40,7 +40,7 @@ async function init() {
   const message = 'This is a test message.'
 
   // connect to WebSocket server
-  const ws = new WebSocket('ws://' + SERVER_HOST + '/ws/')
+  const ws = new WebSocket('wss://' + SERVER_HOST + '/ws/')
 
   ws.on('error', console.error)
 

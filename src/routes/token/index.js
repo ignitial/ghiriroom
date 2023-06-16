@@ -4,11 +4,12 @@
 * Manages application tokens
 */
 module.exports = function (fastify, options, done) {
-  // Create token
   fastify.route({
     method: 'POST',
     url: '/',
     schema: {
+      description: 'Create token',
+      tags: ['token'],
       body: {
         type: 'object',
         properties: {
@@ -16,6 +17,11 @@ module.exports = function (fastify, options, done) {
         },
         required: ['token'],
       },
+      security: [
+        {
+          xAuthToken: [],
+        },
+      ],
     },
     handler: async (request, reply) => {
       const token = request.body.token
@@ -34,10 +40,18 @@ module.exports = function (fastify, options, done) {
     },
   })
 
-  // Get all tokens
   fastify.route({
     method: 'GET',
     url: '/',
+    schema: {
+      description: 'Get all tokens',
+      tags: ['token'],
+      security: [
+        {
+          xAuthToken: [],
+        },
+      ],
+    },
     handler: async (request, reply) => {
       try {
         const rows = fastify.tokens.find({})
@@ -53,6 +67,15 @@ module.exports = function (fastify, options, done) {
   fastify.route({
     method: 'DELETE',
     url: '/:token',
+    schema: {
+      description: 'Delete token by value',
+      tags: ['token'],
+      security: [
+        {
+          xAuthToken: [],
+        },
+      ],
+    },
     handler: async (request, reply) => {
       try {
         const token = request.params.token

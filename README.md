@@ -107,4 +107,4 @@ See _test/index.js_ for full example.
 
 ## Todos
 
-- OpenAPI description and usability
+- Manage separate field names for tokes

@@ -4,7 +4,13 @@ module.exports = function (fastify, options, done) {
   /*
    * WebSocket connection
    */
-  fastify.get('/', { websocket: true }, (connection, req) => {
+  fastify.get('/', { 
+    websocket: true,
+    schema: {
+      description: 'Manage wensockets connections',
+      tags: ['websocket'],
+    }
+  }, (connection, req) => {
     connection.socket.on('message', (message) => {
       try {
         const msgObj = JSON.parse(message)

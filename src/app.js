@@ -4,6 +4,7 @@ const path = require('path')
 
 const dotenv = require("dotenv")
 const fastifyAutoLoad = require('@fastify/autoload')
+const info = require('../package.json')
 
 // Pass --options via CLI arguments in command to enable these options.
 module.exports.options = {}
@@ -26,20 +27,35 @@ module.exports = async function (fastify, opts) {
     methods: ['GET', 'POST', 'DELETE']
   })
   fastify.register(require('@fastify/websocket'))
-  fastify.register(require('@fastify/swagger'), {})
-  fastify.register(require('@fastify/swagger-ui'), {
+  fastify.register(require('@fastify/swagger'), {
     openapi: {
       info: {
         title: 'Ghiriroom',
         description: 'API documentation for Ghiriroom',
-        version: '1.0.0',
+        version: info.version,
       },
+      tags: [
+        { name: 'token', description: 'Token administration related end-points' },
+        { name: 'topic', description: 'Topic and messages related end-points' },
+        { name: 'websocket', description: 'Websocket management' }
+      ],
       servers: [{
         url: process.env.GR_SERVER_URL || 'http://localhost:3000'
       }],
+      components: {
+        securitySchemes: {
+          xAuthToken: {
+            type: 'apiKey',
+            name: 'X-Auth-Token',
+            in: 'header',
+          },
+        }
+      }
     },
+  })
+  fastify.register(require('@fastify/swagger-ui'), {
+    routePrefix: '/docs',
     exposeRoute: true,
-    routePrefix: '/docs'
   })
 
   /*
