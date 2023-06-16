@@ -82,14 +82,14 @@ When first connects to the WEbSocket server, a client must send back a valid
 application token through a WebSocket message of the following format:
 
 ```json
-{"token": APP_TOKEN}
+{"token": "h6EhbYinV2hJ/-jYoeQg9wI8ibR5TQ=0saixl-GjitG72Sbl6cZTT892Ed6R-4Po"}
 ```
 
 Subscription to a topic is done thanks to a WebSocket message having the
 following format:
 
 ```json
-{"topic": 'my_dumb_topic'}
+{"topic": "my_dumb_topic"}
 ```
 
 Sending a message to subscribers is done thanks to a call to an HTTP endpoint:
