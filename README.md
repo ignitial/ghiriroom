@@ -1,4 +1,4 @@
-# Notificatios for dumbs like me
+# Notifications for dumbs like me
 
 Simple notification server based on web sockets.
 Simple, for dumbs, because engineer should remain simple.
